@@ -15,7 +15,7 @@ jobs:
       - run: python app.py &
       - run: sleep 3
       - run: pytest features/ -v --junit-xml=report.xml
-      - run: schemathesis run openapi.yaml --base-url=http://127.0.0.1:5000 --checks all --hypothesis-max-examples=50
+      - run: schemathesis run openapi.yaml --url=http://127.0.0.1:5000 --checks all --hypothesis-max-examples=50
       - run: python gera_matriz.py > matriz_rastreabilidade.md
       - uses: actions/upload-artifact@v4
         with:
