@@ -31,6 +31,15 @@ paths:
                 type: object
                 properties:
                   erro: {type: string}
+            text/html:
+              schema:
+                type: string
+        "500":
+          description: Erro interno
+          content:
+            text/html:
+              schema:
+                type: string
   /transferencia:
     post:
       summary: Realiza transferencia entre contas
@@ -44,7 +53,9 @@ paths:
               properties:
                 origem: {type: integer}
                 destino: {type: integer}
-                valor: {type: number}
+                valor:
+                  type: number
+                  exclusiveMinimum: 0
       responses:
         "200":
           description: Transferencia realizada
@@ -79,6 +90,12 @@ paths:
                 type: object
                 properties:
                   erro: {type: string}
+        "500":
+          description: Erro interno
+          content:
+            text/html:
+              schema:
+                type: string
   /extrato/{conta_id}:
     get:
       summary: Retorna o extrato de uma conta
@@ -108,3 +125,12 @@ paths:
                 type: object
                 properties:
                   erro: {type: string}
+            text/html:
+              schema:
+                type: string
+        "500":
+          description: Erro interno
+          content:
+            text/html:
+              schema:
+                type: string
