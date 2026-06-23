@@ -1,0 +1,110 @@
+openapi: "3.1.0"
+info:
+  title: Internet Banking API
+  version: "1.0.0"
+paths:
+  /saldo/{conta_id}:
+    get:
+      summary: Retorna o saldo de uma conta
+      parameters:
+        - name: conta_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Saldo retornado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conta_id: {type: integer}
+                  titular: {type: string}
+                  saldo: {type: number}
+        "404":
+          description: Conta nao encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: {type: string}
+  /transferencia:
+    post:
+      summary: Realiza transferencia entre contas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [origem, destino, valor]
+              properties:
+                origem: {type: integer}
+                destino: {type: integer}
+                valor: {type: number}
+      responses:
+        "200":
+          description: Transferencia realizada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem: {type: string}
+                  valor: {type: number}
+        "400":
+          description: Corpo invalido ou campos ausentes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: {type: string}
+        "404":
+          description: Conta nao encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: {type: string}
+        "422":
+          description: Valor invalido ou saldo insuficiente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: {type: string}
+  /extrato/{conta_id}:
+    get:
+      summary: Retorna o extrato de uma conta
+      parameters:
+        - name: conta_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Extrato retornado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conta_id: {type: integer}
+                  titular: {type: string}
+                  saldo_atual: {type: number}
+                  historico: {type: array, items: {type: object}}
+        "404":
+          description: Conta nao encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: {type: string}

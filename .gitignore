@@ -1,0 +1,7 @@
+venv/
+venv_mutmut/
+__pycache__/
+*.pyc
+*.db
+.mutmut-cache
+.pytest_cache
